@@ -1,5 +1,6 @@
 <?php
 // ** MySQL settings ** //
+/** MySQL database table */
 define( 'DB_NAME', 'local' );
 
 /** MySQL database username */

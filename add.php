@@ -1,10 +1,5 @@
 <?php
 	require_once(dirname(__FILE__).'/core/functions.php');
-	
-	// データベースに接続
-	$db = getDB();
-	// データ取得
-	$row = getItemData($db);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -19,28 +14,32 @@
 	<header>
 		<nav class="navbar navbar-dark bg-dark">
 			<a href="/" class="navbar-brand">Stock List</a>
-			<a class="btn btn-light" href="/add.php" role="button">+</a>
+			<a class="btn btn-light" href="javascript:history.back();" role="button">↩</a>
 		</nav>
 	</header>
 	<main>
-		<table class="table table-striped">
-		<thead>
-				<tr>
-					<th>アイテム名</th>
-					<th>個数</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Hanako</td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td>Taro</td>
-					<td>3</td>
-				</tr>
-			</tbody>
-		</table>
+		<form action="/save.php" method="post">
+			<table class="table table-striped">
+				<tbody>
+					<tr class="form-group">
+						<th>アイテム名</th>
+						<td>
+							<input type="text" id="itemname" class="form-control" required>
+						</td>
+					</tr>
+					<tr class="form-group">
+						<th>個数</th>
+						<td>
+							<input type="number" id="itemnumber" class="form-control" required>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="col text-center">
+				<input type="hidden" name="itemid" value="">
+				<button type="submit" class="btn btn-primary mb-2">追加</button>
+			</div>
+		</form>
 	</main>
 </body>
 	<script src="//code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

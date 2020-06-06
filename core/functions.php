@@ -11,40 +11,32 @@ function getDB() {
 	return $db;
 }
 
-function getItemData($db) {
+function getItemData($db,$id="") {
 	//select命令の実行
-	$stt = $db->query('SELECT * FROM Item_List ORDER BY ID ASC');
-	$stt->execte();
-	$row = $stt->fetch(PDO::FETCH_ASSOC);
+	if(!empty($id)){
+		$stt = $db->prepare('SELECT * FROM Item_List WHERE (ID = ?)');	
+		$stt->bindValue(1, $id);
+	}else{
+		$stt = $db->query('SELECT * FROM Item_List ORDER BY ID ASC');
+	}
+	$stt->execute();
 
-	return $row;
+	return $stt;
 }
 
 function insertItemdata($db ,$data) {
 	//insert命令を準備
-	$stt = $db->prepare('INSERT INTO Item_List(itemname, number) VALUES (?, ?)');
-
-	//プレイスホルダに入力内容をセット
-	$stt->bindValue(1, $data['itemname']);
-	$stt->bindValue(2, $data['itemnumber']);
+	$stt = $db->prepare('INSERT INTO Item_List (itemname, number) VALUES (?, ?)');
 
 	//insert命令の実行
-	$result = $stt->execute;
+	$stt->execute(array($data['itemname'],$data['itemnumber']));
 
-	return $result;
 }
 
 function updateItemdata($db ,$data) {
 	//update命令を準備
-	$stt = $db->prepare('UPDATE Item_List SET(itemname = ?, number = ?) WHERE (ID = ?)');
-
-	//プレイスホルダに入力内容をセット
-	$stt->bindValue(1, $_POST['itemname']);
-	$stt->bindValue(2, $_POST['itemnumber']);
-	$stt->bindValue(3, $_POST['itemid']);
-
+	$stt = $db->prepare('UPDATE Item_List SET itemname = ?, number = ? WHERE ID = ?');
 	//insert命令の実行
-	$result = $stt->execute;
+	$stt->execute(array($data['itemname'],$data['itemnumber'],$data['itemid']));
 	
-	return $result;
 }

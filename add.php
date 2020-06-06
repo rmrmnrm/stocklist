@@ -1,5 +1,13 @@
 <?php
 	require_once(dirname(__FILE__).'/core/functions.php');
+	$item = array('ID'=>'','category_id'=>'','itemname'=>'','number'=>'');
+	if(isset($_GET['itemid'])){
+		$db = getDB();
+		$Itemdata = getItemData($db , $_GET['itemid']);
+		while ($row = $Itemdata->fetch()){
+			$item = $row;
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -24,19 +32,19 @@
 					<tr class="form-group">
 						<th>アイテム名</th>
 						<td>
-							<input type="text" id="itemname" class="form-control" required>
+							<input type="text" name="itemname" class="form-control" value="<?php echo $item['itemname'];?>" required>
 						</td>
 					</tr>
 					<tr class="form-group">
 						<th>個数</th>
 						<td>
-							<input type="number" id="itemnumber" class="form-control" required>
+							<input type="number" name="itemnumber" class="form-control" value="<?php echo $item['number'];?>" required>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="col text-center">
-				<input type="hidden" name="itemid" value="">
+				<input type="hidden" name="itemid" value="<?php echo $item['ID'];?>">
 				<button type="submit" class="btn btn-primary mb-2">追加</button>
 			</div>
 		</form>

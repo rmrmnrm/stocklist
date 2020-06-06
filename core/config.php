@@ -1,4 +1,6 @@
 <?php
+
+$SITE_URL = 'http://'.$_SERVER['HTTP_HOST'];
 // ** MySQL settings ** //
 /** MySQL database table */
 define( 'DB_NAME', 'local' );

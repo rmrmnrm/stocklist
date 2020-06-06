@@ -2,7 +2,7 @@
 require_once(dirname(__FILE__).'/config.php');
 
 function getDB() {
-	$dsn = 'mysql:dbname='.DB_NAME;'host='.DB_HOST;'charset=utf8mb4';
+	$dsn = 'mysql:dbname='.DB_NAME.';host='.DB_HOST.';charset=utf8mb4';
 	$usr = DB_USER;
 	$passwd = DB_PASSWORD;
 
